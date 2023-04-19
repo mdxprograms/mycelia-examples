@@ -1,6 +1,6 @@
 {
-  "name": "test-m",
-  "private": true,
+  "name": "mycelia-examples",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
