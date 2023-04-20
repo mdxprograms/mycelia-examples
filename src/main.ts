@@ -19,6 +19,7 @@ onAddTodo(() => {
 
 onTodoError(() => console.error("Must be more than 3 characters in length"));
 
+// App setup
 const App = () => div({}, [TodoInput, TodoList]);
 
 mount(App(), appSelector);
