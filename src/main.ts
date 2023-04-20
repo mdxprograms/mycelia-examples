@@ -1,48 +1,24 @@
 import { dom, mount } from "@wallerbuilt/mycelia";
-import {
-  InputDownEvent,
-  InputUpEvent,
-  handleTodoAdd,
-  handleTodoError,
-  handleTodoInput,
-  onAddTodo,
-  onTodoError,
-  onTodoInput,
-} from "./events";
+
+import { onAddTodo, onTodoError, onTodoInput } from "./events";
+import Todo from "./components/Todo";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
 
 const appSelector = "#app";
 
-const { div, input } = dom;
+const { div } = dom;
 
-const TodoInput = input({
-  placeholder: "What needs done?",
-  onkeydown: (e: InputDownEvent) => {
-    if (e.key === "Enter") {
-      handleTodoAdd({ title: e.target.value });
-    }
-
-    if (e.key === "Backspace") {
-      if (e?.target?.value.length <= 3) {
-        handleTodoError({
-          hasError: true,
-          msg: "must be more than 3 characters",
-        });
-      }
-    }
-  },
-  onkeyup: (e: InputUpEvent) => {
-    handleTodoInput({ title: e?.target?.value });
-  },
-}) as HTMLInputElement;
-
+// Todo item handlers
 onTodoInput(console.log);
 
 onAddTodo(() => {
+  TodoList.appendChild(Todo(TodoInput.value));
   TodoInput.value = "";
 });
 
-onTodoError(console.error);
+onTodoError(() => console.error("Must be more than 3 characters in length"));
 
-const App = () => div({}, TodoInput);
+const App = () => div({}, [TodoInput, TodoList]);
 
 mount(App(), appSelector);
