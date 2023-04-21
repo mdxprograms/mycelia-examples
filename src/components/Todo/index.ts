@@ -1,7 +1,11 @@
 import { dom } from "@wallerbuilt/mycelia";
 
-const { div } = dom;
+const { div, span, input, label } = dom;
 
-const Todo = (value: string) => div({}, value);
+const Todo = (value: string) =>
+  div({}, [
+    span({}, value),
+    label({}, [input({ type: "checkbox" }, ""), span({}, "Complete?")]),
+  ]);
 
 export default Todo;
